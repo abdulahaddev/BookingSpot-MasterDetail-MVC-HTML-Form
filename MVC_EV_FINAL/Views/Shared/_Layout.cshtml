@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        //Click Event for add new spot entry button on modal
+        $("#btnPlus").click(function (e) {
+            e.preventDefault();
+            var spotContainer = $("#SpotContainer");
+
+            $.ajax({
+                url: "/Clients/AddNewSpot",
+                type: "GET",
+                success: function (data) {
+                    spotContainer.append(data);
+                }
+            });
+        });
+
+        //Click Event for delete spot button on modal
+        $(document).on("click", "#btnDeleteSpot", function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        });
+    </script>
+</body>
+</html>

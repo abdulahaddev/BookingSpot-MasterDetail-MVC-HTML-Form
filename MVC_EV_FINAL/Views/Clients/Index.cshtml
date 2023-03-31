@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MVC_EV_FINAL.Models.Client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex justify-content-end mb-2">
+    <a href="@Url.Action("Create", "Clients")" id="btnCreate" class="btn btn-primary"><i class="fa fa-plus pr-2"></i>Add New</a>
+</div>
+
+<div>
+    @foreach (var client in Model)
+    {
+    <div class="card mb-2">
+        <div class="card-header d-flex justify-content-between">
+            <div>
+                <img src="@client.Picture" width="32" />
+                <label class="mr-2"><b>Client : </b>@Html.DisplayFor(x => client.ClientName)</label>
+                <label class="mr-2"><b>Age : </b>@Html.DisplayFor(x => client.Age)</label>
+                <label class="mr-2"><b>Birth Date : </b>@Html.DisplayFor(x => client.BirthDate)</label>
+            </div>
+            <div>
+                <a href="@Url.Action("Edit", "Clients", new { id = client.ClientId})" id="btnEntryEdit" class="btn btn-primary"><i class="fa fa-edit pr-2"></i></a>
+                <a href="@Url.Action("Delete", "Clients", new { id = client.ClientId})" id="btnEntryDelete" class="btn btn-danger"><i class="fa fa-trash pr-2"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Spot Id</th>
+                        <th>Spot Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in client.bookingEntries)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(x => item.Spot.SpotId)</td>
+                            <td>@Html.DisplayFor(x => item.Spot.SpotName)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,82 @@
+﻿@model MVC_EV_FINAL.ViewModels.ClientVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <hr />
+        <div class="col-md-6">
+            <h4>Client</h4>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClientName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClientName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ClientName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BirthDate, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control", Type = "date" } })
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PictureFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PictureFile, "", new { @class = "form-control", Type = "file" })
+                    @Html.ValidationMessageFor(model => model.PictureFile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.MaritalStatus)
+                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <h4>Select Spot</h4>
+            <div class="d-flex justify-content-end mb-3">
+                <a href="#" id="btnPlus" class="btn btn-warning mr-2"><i class="fa fa-plus"></i></a>
+            </div>
+
+            <div id="SpotContainer">
+
+                @Html.Action("AddNewSpot", "Clients")
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-end">
+        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
